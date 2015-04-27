@@ -46,6 +46,26 @@
 		 *
 		 */
 		userforms.update = function() {
+			
+			var updateFieldSort = function(event, ui) {
+				var sort = 1;
+
+				$("#Fields_fields > li.EditableFormField").each(function() {
+					$(this).find(".sortHidden").val(sort++);
+					$(this).find(".containerHidden").val('0');
+				});
+				
+				$("#Fields_fields .subFieldsList").each(function() {
+					var sort = 1;
+					$(this).children("li.EditableFormField").each(function() {
+						$(this).children(".sortHidden").val(sort++);
+						$(this).children(".containerHidden").val(
+							$(this).parent('.subFieldsList').attr('class').split(' ')[1].replace('ContainerField', '')
+						);
+					})
+				});
+			}
+			
 			$("#Fields_fields").sortable({
 				handle: '.fieldHandler',
 				cursor: 'pointer',
@@ -56,13 +76,23 @@
 				change : function (event, ui) {
 					$("#Fields_fields").sortable('refreshPositions');
 				},
-				update : function (event, ui) {
-					var sort = 1;
-
-					$("li.EditableFormField").each(function() {
-						$(this).find(".sortHidden").val(sort++);
-					});
-				}
+				update : updateFieldSort,
+				connectWith: '#Fields_fields .subFieldsList'
+			});
+			
+			$("#Fields_fields .subFieldsList").sortable({
+				handle: '.fieldHandler',
+				cursor: 'pointer',
+				items: 'li.EditableFormField',
+				placeholder: 'removed-form-field',
+				opacity: 0.6,
+				revert: 'true',
+				change : function (event, ui) {
+					$("#Fields_fields").sortable('refreshPositions');
+					$("#Fields_fields .subFieldsList").sortable('refreshPositions');
+				},
+				update : updateFieldSort,
+				connectWith: '#Fields_fields'
 			});
 
 			$(".editableOptions").sortable({

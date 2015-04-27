@@ -90,7 +90,7 @@ class FieldEditor extends FormField {
 	public function Fields() {
 		if($this->form && $this->form->getRecord() && $this->name) {
 			$relationName = $this->name;
-			$fields = $this->form->getRecord()->getComponents($relationName);
+			$fields = $this->form->getRecord()->getComponents($relationName, 'ContainerFieldID = 0');
 		
 			if($fields) {
 				foreach($fields as $field) {

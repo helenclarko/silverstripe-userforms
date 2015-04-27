@@ -18,6 +18,7 @@ and without getting involved in any PHP code.
 ## Features
 
 *  Construct a form using all major form fields (text, email, dropdown, radio, checkbox..)
+*  NEW! added Container Field, allowing users to add left and right aligned fields
 *  Ability to extend userforms from other modules to provide extra fields.
 *  Ability to email multiple people the form submission
 *  View submitted submissions and export them to CSV

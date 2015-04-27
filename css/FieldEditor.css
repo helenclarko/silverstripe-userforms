@@ -101,6 +101,24 @@ li.class-UserDefinedForm > a .jstree-pageicon { background-position: 0 -64px; }
 			width: 250px;
 			margin-left: 0px;
 		}
+		
+		/** Container Fields **/
+		
+		#Fields_fields .EditableCompositeField ul.subFieldsList {
+			min-height: 20px;
+			padding-bottom: 10px;
+			background: #f4f4f4;
+			display: block;
+			clear: both;
+			margin-left: 38px;
+		}
+			#Fields_fields .EditableCompositeField ul.subFieldsList li {
+				display: block;
+				margin: 0 2px 0 7px;
+				padding-left: 10px;
+				background: white;
+			}
+		
 	
 		/** Field Options **/
 		

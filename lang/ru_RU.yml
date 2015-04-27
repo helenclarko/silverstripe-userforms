@@ -95,3 +95,6 @@ ru_RU:
   UserDefinedForm_EmailRecipient:
     PLURALNAME: 'User Defined Form Email Recipients'
     SINGULARNAME: 'User Defined Form Email Recipient'
+  EditableCompositeField:
+    PLURALNAME: 'Container Fields'
+    SINGULARNAME: 'Container Field'

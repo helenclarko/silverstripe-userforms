@@ -169,3 +169,6 @@ en:
   UserFormsGridFieldFilterHeader:
     FILTERSUBMISSIONS: 'Filter Submissions..'
     WHEREVALUEIS: 'where value is..'
+  EditableCompositeField:
+    PLURALNAME: 'Container Fields'
+    SINGULARNAME: 'Container Field'

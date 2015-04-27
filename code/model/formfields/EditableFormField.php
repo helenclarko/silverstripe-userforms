@@ -31,6 +31,7 @@ class EditableFormField extends DataObject {
 
 	private static $has_one = array(
 		"Parent" => "UserDefinedForm",
+		"ContainerField" => "EditableCompositeField"
 	);
 	
 	private static $extensions = array(
@@ -352,6 +353,7 @@ class EditableFormField extends DataObject {
 		$this->Title 		= (isset($data['Title'])) ? $data['Title']: "";
 		$this->Default 		= (isset($data['Default'])) ? $data['Default'] : "";
 		$this->Sort 		= (isset($data['Sort'])) ? $data['Sort'] : null;
+		$this->ContainerFieldID = (isset($data['ContainerFieldID'])) ? $data['ContainerFieldID'] : null;
 		$this->Required 	= !empty($data['Required']) ? 1 : 0;
 		$this->Name 		= $this->class.$this->ID;
 		$this->CustomRules	= "";

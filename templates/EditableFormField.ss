@@ -128,7 +128,18 @@
 		</div>
 	<% end_if %>
 	
+	<% if IsContainer %>
+		<ul class="subFieldsList ContainerField{$ID}">
+			<% if SubFields %>
+				<% loop SubFields %>
+					$EditSegment
+				<% end_loop %>
+			<% end_if %>
+		</ul>
+	<% end_if %>
+	
 	<!-- Hidden option Fields -->
 	<input type="hidden" class="typeHidden" name="{$FieldName}[Type]" value="$ClassName" /> 
 	<input type="hidden" class="sortHidden" name="{$FieldName}[Sort]" value="$Sort" />
+	<input type="hidden" class="containerHidden" name="{$FieldName}[ContainerFieldID]" value="$ContainerFieldID" />
 </li>

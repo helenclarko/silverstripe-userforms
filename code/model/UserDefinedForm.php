@@ -19,7 +19,7 @@ class UserDefinedForm extends Page {
 	/**
 	 * @var array Fields on the user defined form page.
 	 */
-	private static $db = array(
+	public static $db = array(
 		"SubmitButtonText" => "Varchar",
 		"ClearButtonText" => "Varchar",
 		"OnCompleteMessage" => "HTMLText",
@@ -538,43 +538,44 @@ class UserDefinedForm_Controller extends Page_Controller {
 	public function getFormFields() {
 		$fields = new FieldList();
 
-		$editableFields = $this->Fields();
-		if($editableFields) foreach($editableFields as $editableField) {
-			// get the raw form field from the editable version
-			$field = $editableField->getFormField();
-			if(!$field) break;
+		if($this->Fields()) {
+			foreach($this->Fields('ContainerFieldID = 0') as $editableField) {
+				// get the raw form field from the editable version
+				$field = $editableField->getFormField();
+				if(!$field) break;
 
-			// set the error / formatting messages
-			$field->setCustomValidationMessage($editableField->getErrorMessage());
+				// set the error / formatting messages
+				$field->setCustomValidationMessage($editableField->getErrorMessage());
 
-			// set the right title on this field
-			if($right = $editableField->getSetting('RightTitle')) {
-				// Since this field expects raw html, safely escape the user data prior
-				$field->setRightTitle(Convert::raw2xml($right));
-			}
-
-			// if this field is required add some
-			if($editableField->Required) {
-				$field->addExtraClass('requiredField');
-
-				if($identifier = UserDefinedForm::config()->required_identifier) {
-
-					$title = $field->Title() ." <span class='required-identifier'>". $identifier . "</span>";
-					$field->setTitle($title);
+				// set the right title on this field
+				if($right = $editableField->getSetting('RightTitle')) {
+					// Since this field expects raw html, safely escape the user data prior
+					$field->setRightTitle(Convert::raw2xml($right));
 				}
-			}
-			// if this field has an extra class
-			if($extraClass = $editableField->getSetting('ExtraClass')) {
-				$field->addExtraClass(Convert::raw2att($extraClass));
-			}
 
-			// set the values passed by the url to the field
-			$request = $this->getRequest();
-			if($value = $request->getVar($field->getName())) {
-				$field->setValue($value);
-			}
+				// if this field is required add some
+				if($editableField->Required) {
+					$field->addExtraClass('requiredField');
 
-			$fields->push($field);
+					if($identifier = UserDefinedForm::config()->required_identifier) {
+
+						$title = $field->Title() ." <span class='required-identifier'>". $identifier . "</span>";
+						$field->setTitle($title);
+					}
+				}
+				// if this field has an extra class
+				if($extraClass = $editableField->getSetting('ExtraClass')) {
+					$field->addExtraClass(Convert::raw2att($extraClass));
+				}
+
+				// set the values passed by the url to the field
+				$request = $this->getRequest();
+				if($value = $request->getVar($field->getName())) {
+					$field->setValue($value);
+				}
+
+				$fields->push($field);
+			}
 		}
 		$this->extend('updateFormFields', $fields);
 
